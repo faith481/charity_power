@@ -44,46 +44,77 @@
     </div>
   </div>
 
-  <script>
+<script>
     const form = document.getElementById('assistanceForm');
-    const responseMsg = document.getElementById('responseMessage');
+    const responseMessage = document.getElementById('responseMessage');
     const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'Submitting...';
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-      const formData = {
-        fullName: document.getElementById('fullName').value,
-        meterNumber: document.getElementById('meterNumber').value,
-        address: document.getElementById('address').value
-      };
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting...';
 
-      try {
-        const res = await fetch('/api/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
+        responseMessage.classList.add('hidden');
+        responseMessage.textContent = '';
 
-        const data = await res.json();
+        const formData = {
+            fullName: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            meterNumber: document.getElementById('meterNumber').value
+        };
 
-        if (res.ok) {
-          responseMsg.className = 'status-success';
-          responseMsg.innerText = data.message;
-          form.reset();
-        } else {
-          throw new Error(data.error || 'Failed to submit application.');
+        try {
+            const response = await fetch('/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            // Read the server response as text first
+            const text = await response.text();
+
+            let result;
+
+            // Try to parse the response as JSON
+            try {
+                result = JSON.parse(text);
+            } catch (parseError) {
+                console.error('Server returned non-JSON:', text);
+
+                responseMessage.textContent =
+                    'Server error. Please try again later.';
+                responseMessage.classList.remove('hidden');
+                return;
+            }
+
+            if (response.ok) {
+                responseMessage.className = 'status-success';
+                responseMessage.textContent =
+                    result.message || 'Application submitted successfully!';
+                responseMessage.classList.remove('hidden');
+
+                form.reset();
+            } else {
+                responseMessage.textContent =
+                    result.error || 'An error occurred. Please try again.';
+                responseMessage.classList.remove('hidden');
+            }
+
+        } catch (error) {
+            console.error('Request error:', error);
+
+            responseMessage.textContent =
+                'Network error. Please try again later.';
+            responseMessage.classList.remove('hidden');
+
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Submit Application';
         }
-      } catch (err) {
-        responseMsg.className = 'status-error';
-        responseMsg.innerText = err.message;
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Submit Application';
-      }
     });
-  </script>
+</script>
 </body>
 </html>
