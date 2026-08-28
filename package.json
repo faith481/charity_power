@@ -6,6 +6,6 @@
         "start": "serve public"
     },
     "dependencies": {
-        "@supabase/supabase-js": "^3.9.0"
+        "@supabase/supabase-js": "^2.112.4"
     }
 }
