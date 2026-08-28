@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Assistance Initiative</title>
+    <link rel="stylesheet" href="styles.css"
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Light Up Lives Initiative</h1>
+            <p>Providing clean electricity support to less priviledged households.</p>
+        </header>
+
+        <form id="assistanceForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Residential Address</label>
+                <input type="email" id="email" name="email" placeholder="123 Main St, City, State 12345" required>
+            </div>
+
+            <div class="form-group">
+                <label for="meterNumber">Electricity Meter Number</label>
+                <input type="text" id="meterNumber" name="meterNumber" placeholder="1234567890" required>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Application</button>
+        </form>
+        <div id="responseMessage" class="hidden"></div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('assistanceForm');
+        const responseMessage = document.getElementById('responseMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting...';
+            responseMessage.classList.add('hidden');
+            responseMessage.textContent = '';
+
+
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                meterNumber: document.getElementById('meterNumber').value
+            };
+
+            try {
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    responseMessage.className = 'status-success';
+                    responseMessage.innerText = data.message;
+                    responseMessage.textContent = result.message || 'Application submitted successfully!';
+                    responseMessage.classList.remove('hidden');
+                    form.reset();
+                } else {
+                    responseMessage.textContent = result.error || 'An error occurred. Please try again.';
+                    responseMessage.classList.remove('hidden');
+                }
+            } catch (error) {
+                responseMessage.textContent = 'Network error. Please try again later.';
+                responseMessage.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

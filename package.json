@@ -1,0 +1,11 @@
+{
+    "name": "charity-power-app",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "serve public"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^3.9.0"
+    }
+}

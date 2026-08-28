@@ -1,0 +1,212 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 16px 32px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0284c7;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #64748b;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.nav-links a.active {
+  color: #0284c7;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #0284c7;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #94a3b8;
+  max-width: 600px;
+  margin: 0 auto 24px auto;
+}
+
+.cta-button {
+  background: #38bdf8;
+  color: #0f172a;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+/* Impact Dashboard Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: -30px auto 40px auto;
+  padding: 0 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  color: #0284c7;
+}
+
+/* Mission & Vision Cards */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto 40px auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+/* Pillars */
+.pillars {
+  max-width: 1000px;
+  margin: 0 auto 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.pillars h2 {
+  margin-bottom: 24px;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.pillar-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+/* Form Layout */
+.form-wrapper {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.subtitle {
+  color: #64748b;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: #0284c7;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#responseMessage {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.hidden { display: none; }
+.status-success { background: #dcfce7; color: #166534; }
+.status-error { background: #fee2e2; color: #991b1b; }
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  border-top: 1px solid #e2e8f0;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Assistance | Power For All</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">⚡ PowerForAll</div>
+    <div class="nav-links">
+      <a href="index.html">Dashboard</a>
+      <a href="apply.html" class="active btn-primary">Apply for Assistance</a>
+    </div>
+  </nav>
+
+  <div class="form-wrapper">
+    <div class="card shadow">
+      <h2>Electricity Assistance Application</h2>
+      <p class="subtitle">Enter your details below to register your meter for relief credit distribution.</p>
+
+      <form id="assistanceForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Mary Johnson" required>
+        </div>
+
+        <div class="form-group">
+          <label for="meterNumber">Electricity Meter Number</label>
+          <input type="text" id="meterNumber" placeholder="e.g. 0123-4567-8901" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Residential Address</label>
+          <textarea id="address" rows="3" placeholder="Enter street address, city, and state" required></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn">Submit Application</button>
+      </form>
+
+      <div id="responseMessage" class="hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('assistanceForm');
+    const responseMsg = document.getElementById('responseMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Submitting...';
+
+      const formData = {
+        fullName: document.getElementById('fullName').value,
+        meterNumber: document.getElementById('meterNumber').value,
+        address: document.getElementById('address').value
+      };
+
+      try {
+        const res = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          responseMsg.className = 'status-success';
+          responseMsg.innerText = data.message;
+          form.reset();
+        } else {
+          throw new Error(data.error || 'Failed to submit application.');
+        }
+      } catch (err) {
+        responseMsg.className = 'status-error';
+        responseMsg.innerText = err.message;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit Application';
+      }
+    });
+  </script>
+</body>
+</html>
