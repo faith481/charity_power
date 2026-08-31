@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   try {
     const { data, error } = await supabase
-      .from('beneficiaries')
+      .from('beneficiariess')
       .insert([
         {
           full_name: fullName,
