@@ -26,8 +26,7 @@ export default async function handler(req, res) {
           meter_number: meterNumber,
           address: address
         }
-      ])
-      select();
+      ]);
 
     if (error) {
       // Handle unique constraint error for duplicate meter numbers
