@@ -10,9 +10,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { fullName, meterNumber, address } = req.body;
+  const { fullName, email, meterNumber, address } = req.body;
 
-  if (!fullName || !meterNumber || !address) {
+  if (!fullName || !email || !meterNumber || !address) {
     return res.status(400).json({ error: 'All fields are required.' });
   }
 
@@ -22,10 +22,12 @@ export default async function handler(req, res) {
       .insert([
         {
           full_name: fullName,
+          email: email,
           meter_number: meterNumber,
           address: address
         }
-      ]);
+      ])
+      select();
 
     if (error) {
       // Handle unique constraint error for duplicate meter numbers
